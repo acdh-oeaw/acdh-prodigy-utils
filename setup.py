@@ -6,6 +6,8 @@ setup(
         'prodigy_loaders': [
             'from_dsebaseapp = dsebaseapp:from_dsebaseapp',
             'from_transkribus = transkribus:yield_samples',
+            'from_transkribus_regions = transkribus:yield_texts',
+            'from_ske_docs = ske:yield_docs'
         ],
     },
     requirements=[

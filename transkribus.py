@@ -58,3 +58,16 @@ def yield_samples(source):
         print("found {} sents in doc: {}".format(len(list(doc.sents)), page_url))
         for sent in list(doc.sents):
             yield {"text": sent.text}
+
+
+def yield_texts(source):
+    col_id, doc_id = source.split('::')
+    page_keys = get_page_keys(col_id, doc_id)
+    for page_url in page_keys:
+        page_xml = requests.get(page_url)
+        page = ET.fromstring(page_xml.text.encode('utf8'))
+        for y in page.xpath(
+            './/page:TextRegion/page:TextEquiv/page:Unicode/text()', namespaces=nsmap
+        ):
+            text = y.replace('¬\n', '').replace('\n', ' ')
+            yield {"text": text}
