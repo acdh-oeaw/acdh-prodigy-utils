@@ -12,6 +12,13 @@ pw = SKE['pw']
 
 
 def get_start_toks(user, pw, rest_url, corpus_id):
+    """ yields the number of the first token of each document in a corpus
+        :param user: username for the sketch engine instance
+        :param pw: password for the sketch engine instance
+        :param rest_url: The base URL of the sketch engine instance
+        :corpus_id: The name/id of the sketch engine corpus
+        :return: yields the IDs of a document's first token.
+    """
     auth = (user, pw)
     next = True
     counter = 1
@@ -37,6 +44,10 @@ def get_start_toks(user, pw, rest_url, corpus_id):
 
 
 def yield_docs(source):
+    """ fetches all documents form a sketch-engine corpus and yields their texts.
+        :param source: the name of the corpus
+        :return: yields samples {"text": ""}
+    """
     print(source)
     corpus_id = source
     auth = (user, pw)

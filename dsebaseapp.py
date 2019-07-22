@@ -35,9 +35,8 @@ def get_doc_list(domain, app_name, collection='editions', verbose=True):
 
 
 def from_dsebaseapp(source):
-
     """ fetches TEI-Docs from an dsebaseapp instance and yields JSONL samples
-        :param: a string follwoing this scheme {domain}::{app_name}::{collection}
+        :param source: a string follwoing this scheme {domain}::{app_name}::{collection}
         :return: yields samples {"text": ""}
     """
     my_terms = [
