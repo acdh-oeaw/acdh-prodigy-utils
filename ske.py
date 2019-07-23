@@ -2,13 +2,14 @@ import requests
 import json
 import spacy
 
-from secret import SKE
+from prodigy import get_config
 
 rest_url = "http://ske.herkules.arz.oeaw.ac.at/run.cgi"
 spacy_model = "de_core_news_sm"
 
-user = SKE['user']
-pw = SKE['pw']
+config = get_config()
+user = config['api_keys']['ske_user']
+pw = config['api_keys']['ske_pw']
 
 
 def get_start_toks(user, pw, rest_url, corpus_id):

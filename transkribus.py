@@ -3,7 +3,7 @@ import json
 import spacy
 import lxml.etree as ET
 
-from secret import TRANSKRIBUS
+from prodigy import get_config
 
 rest_url = "https://transkribus.eu/TrpServer/rest"
 nsmap = {
@@ -11,8 +11,9 @@ nsmap = {
 }
 spacy_model = "de_core_news_sm"
 
-user = TRANSKRIBUS['user']
-pw = TRANSKRIBUS['pw']
+config = get_config()
+user = config['api_keys']['trankskribus_user']
+pw = config['api_keys']['trankskribus_pw']
 
 
 def transkribus_login(user, pw, rest_url=rest_url):
@@ -31,7 +32,7 @@ def transkribus_login(user, pw, rest_url=rest_url):
 
 def get_page_keys(col_id, doc_id):
     doc_url = "{}/collections/{}/{}/fulldoc.xml".format(rest_url, col_id, doc_id)
-    session_id = transkribus_login(TRANSKRIBUS['user'], TRANSKRIBUS['pw'], rest_url=rest_url)
+    session_id = transkribus_login(user, pw, rest_url=rest_url)
     headers = {
         'cookie': "JSESSIONID={}".format(session_id),
     }

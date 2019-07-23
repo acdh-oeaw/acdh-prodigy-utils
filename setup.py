@@ -14,8 +14,5 @@ setup(
             'from_transkribus_regions = transkribus:yield_texts',
             'from_ske_docs = ske:yield_docs'
         ],
-    },
-    requirements=[
-        'prodigy>=1.8.3'
-    ]
+    }
 )

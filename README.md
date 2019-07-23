@@ -10,6 +10,15 @@ A bunch of custom loaders for prodigy
 
 * clone the repo
 * build the package (in your virtual environment) `python setup.py develop`
+* add needed api-credentials to your `prodigy.json` config file like
+```python
+"api_keys": {
+    "ske_user": "someusername",
+    "ske_pw": "somepassword",
+    "trankskribus_user": "someusername",
+    "trankskribus_pw": "somepassword"
+}
+```
 
 ## example dsebaseapp
 
@@ -27,14 +36,7 @@ annotate TEI documents stored in a dsebaseapp instance
 ## example transkribus
 
 * clone the repo
-* add a `secret.py` file in the repos root directory.
-* add following dict to `secret.py`
-```python
-TRANSKRIBUS = {
-    "user": "transkribus-user-name",
-    "pw": "transkribus-user-pw"
-}
-```
+
 
 ### Make NER-Gold-Data
 
@@ -42,15 +44,6 @@ TRANSKRIBUS = {
 
 ## example sketch-engine
 
-* clone the repo
-* add a `secret.py` file in the repos root directory.
-* add following dict to `secret.py`
-```python
-SKE = {
-    "user": "sketch-engine-user-name",
-    "pw": "sketch-engine-user-pw"
-}
-```
 
 ### text classifier
 
