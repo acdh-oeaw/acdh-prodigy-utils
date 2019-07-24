@@ -5,6 +5,7 @@ A bunch of custom loaders for prodigy
 * dsebaseapp
 * transkribus
 * sketch-engine
+* django-rest-framework based APIs
 
 # install
 
@@ -20,6 +21,8 @@ A bunch of custom loaders for prodigy
 }
 ```
 
+also install lxml and requests
+
 ## example dsebaseapp
 
 annotate TEI documents stored in a dsebaseapp instance
@@ -32,11 +35,11 @@ annotate TEI documents stored in a dsebaseapp instance
 
 `python -m prodigy ner.make-gold asbw de_core_news_sm https://asbw-retro.acdh-dev.oeaw.ac.at::asbw-retro::editions --loader from_dsebaseapp --label PER,ORG,LOC -U`
 
+## example django-rest-framework
+
+`python -m prodigy ner.make-gold drf de_core_news_sm https://annotator.acdh-dev.oeaw.ac.at/api/nersampletodo/?format=json::text::50 --loader from_drf --label PER,ORG,LOC,MISC -U`
 
 ## example transkribus
-
-* clone the repo
-
 
 ### Make NER-Gold-Data
 

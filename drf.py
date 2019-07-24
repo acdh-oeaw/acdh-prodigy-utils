@@ -20,7 +20,7 @@ def yield_samples(source):
         else:
             next = False
         results = result.get('results')
-        for x in results: 
+        for x in results:
             text = x.get(lookup)
             if len(text) >= int(min_len):
                 yield {"text": x.get(lookup)}
