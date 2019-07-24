@@ -12,8 +12,14 @@ nsmap = {
 spacy_model = "de_core_news_sm"
 
 config = get_config()
-user = config['api_keys']['trankskribus_user']
-pw = config['api_keys']['trankskribus_pw']
+try:
+    user = config['api_keys']['trankskribus_user']
+except KeyError:
+    user = "user"
+try:
+    pw = config['api_keys']['trankskribus_pw']
+except KeyError:
+    pw = "pw"
 
 
 def transkribus_login(user, pw, rest_url=rest_url):

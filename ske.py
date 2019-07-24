@@ -8,8 +8,14 @@ rest_url = "http://ske.herkules.arz.oeaw.ac.at/run.cgi"
 spacy_model = "de_core_news_sm"
 
 config = get_config()
-user = config['api_keys']['ske_user']
-pw = config['api_keys']['ske_pw']
+try:
+    user = config['api_keys']['ske_user']
+except KeyError:
+    user = "user"
+try:
+    pw = config['api_keys']['ske_pw']
+except KeyError:
+    pw = "pw"
 
 
 def get_start_toks(user, pw, rest_url, corpus_id):
