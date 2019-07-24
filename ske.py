@@ -44,7 +44,7 @@ def get_start_toks(user, pw, rest_url, corpus_id):
             yield line.get('toknum')
 
 
-def yield_docs(source):
+def yield_samples(source):
     """ fetches all documents form a sketch-engine corpus and yields their texts.
         :param source: the name of the corpus
         :return: yields samples {"text": ""}
