@@ -45,6 +45,16 @@ annotate TEI documents stored in a dsebaseapp instance
 
 `python -m prodigy ner.make-gold asbw de_core_news_sm 44688::181839  --loader from_transkribus --label PER,ORG,LOC,MISC -U`
 
+### text classifier
+
+#### make a dataset
+
+`python -m prodigy dataset mpr_retro_ungarn_textcat "MPR-Ungarn for text classification"`
+
+#### start prodigy
+
+`python -m prodigy textcat.manual mpr_retro_ungarn_textcat de_core_news_sm 45410::187485 --loader from_transkribus_regions --label PB,P,REGEST,NOTE,MINUTEH,OTHER`
+
 ## example sketch-engine
 
 

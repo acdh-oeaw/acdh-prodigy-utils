@@ -36,7 +36,7 @@ def transkribus_login(user, pw, rest_url=rest_url):
         response.ok
 
 
-def get_page_keys(col_id, doc_id):
+def get_page_keys(col_id, doc_id, user=user, pw=pw):
     doc_url = "{}/collections/{}/{}/fulldoc.xml".format(rest_url, col_id, doc_id)
     session_id = transkribus_login(user, pw, rest_url=rest_url)
     headers = {
@@ -45,7 +45,14 @@ def get_page_keys(col_id, doc_id):
     response = requests.request("GET", doc_url, headers=headers)
     if response.ok:
         doc_xml = ET.fromstring(response.text.encode('utf8'))
-        return doc_xml.xpath('//transcripts/url/text()')
+        result = {}
+        result["doc_url"] = doc_url
+        result["doc_xml"] = doc_xml
+        result["page_keys"] = doc_xml.xpath('//tsList/transcripts[1]/url/text()')
+        result["page_thumbs"] = doc_xml.xpath('//pages/url/text()')
+        result["page_ids"] = doc_xml.xpath('//pages/pageId/text()')
+
+        return result
     else:
         return response.ok
 
@@ -70,11 +77,26 @@ def yield_samples(source):
 def yield_texts(source):
     col_id, doc_id = source.split('::')
     page_keys = get_page_keys(col_id, doc_id)
-    for page_url in page_keys:
+    counter = 0
+    for page_url in page_keys["page_keys"]:
         page_xml = requests.get(page_url)
         page = ET.fromstring(page_xml.text.encode('utf8'))
         for y in page.xpath(
             './/page:TextRegion/page:TextEquiv/page:Unicode/text()', namespaces=nsmap
         ):
             text = y.replace('¬\n', '').replace('\n', ' ')
-            yield {"text": text}
+            img_url = page_keys["page_thumbs"][counter]
+            meta_dict = {
+                "doc_id": page_url,
+                "doc_url": page_keys['doc_url'],
+                "page_id": page_keys["page_ids"][counter],
+                "page_thumb": page_keys["page_thumbs"][counter],
+                "image": page_keys["page_thumbs"][counter]
+            }
+            html = f"<div><p>{text}</p><img src='{img_url}'/></div>"
+            yield {
+                "text": text,
+                "html": html,
+                "meta": meta_dict
+            }
+        counter += 1

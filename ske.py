@@ -66,3 +66,12 @@ def yield_samples(source):
             yield {"text": response.text}
         else:
             continue
+
+
+def samples_to_file(source="amc3_demo"):
+    print(user)
+    output_file = f"{source}.jsonl"
+    with open(output_file, 'w', encoding="utf-8") as f_out:
+        for x in yield_samples(source):
+            f_out.write("{}\n".format(json.dumps(x)))
+    return output_file
