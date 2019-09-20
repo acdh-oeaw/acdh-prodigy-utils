@@ -15,10 +15,12 @@ config = get_config()
 try:
     user = config['api_keys']['trankskribus_user']
 except KeyError:
+    print("no config set")
     user = "user"
 try:
     pw = config['api_keys']['trankskribus_pw']
 except KeyError:
+    print("no config set")
     pw = "pw"
 
 
@@ -93,7 +95,7 @@ def yield_texts(source):
                 "page_thumb": page_keys["page_thumbs"][counter],
                 "image": page_keys["page_thumbs"][counter]
             }
-            html = f"<div><p>{text}</p><img src='{img_url}'/></div>"
+            html = f"<div><p>{text}</p><img src='{img_url}' style='max-width: 100%'/></div>"
             yield {
                 "text": text,
                 "html": html,
