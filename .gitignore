@@ -3,3 +3,4 @@ secret.py
 /__pycache__
 prodigy_utils.egg-info
 /Untitled.ipynb
+*.ipynb
