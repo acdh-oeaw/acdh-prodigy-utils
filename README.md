@@ -71,4 +71,4 @@ annotate TEI documents stored in a dsebaseapp instance
 
 ### NER
 
-`python -m prodigy ner.make-gold ske-amc de_core_news_sm amc3_demo --loader from_ske_docs --label PER,ORG,LOC,MISC`
+`python -m prodigy ner.make-gold ske-amc de_core_news_sm amc3_demo --loader from_ske_docs`

@@ -63,7 +63,13 @@ def yield_samples(source):
         url = "{}/structctx?corpname={};pos={}".format(rest_url, corpus_id, x)
         response = requests.request("GET", url, auth=auth)
         if response.ok:
-            yield {"text": response.text}
+            yield {
+                "text": response.text,
+                "meta": {
+                    "corpus_id": corpus_id,
+                    "url": url
+                }
+            }
         else:
             continue
 
