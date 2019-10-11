@@ -6,7 +6,7 @@ def yield_samples(source):
     """ yields samples from and DRF-Endpoint
         :param source: {URL::text_key::min_len}; something like:\
         source = "https://annotator.acdh-dev.oeaw.ac.at/api/nersampletodo/?format=json::text::50"
-        :return: yields samples {"text": "Lorem ipsums"}
+        :return: yields samples {"text": "Lorem ipsums", "meta": {"url": drf-url, "field": lookup}}
     """
     rest_url, lookup, min_len = source.split("::")
     next = True
