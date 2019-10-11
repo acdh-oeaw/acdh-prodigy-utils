@@ -23,4 +23,11 @@ def yield_samples(source):
         for x in results:
             text = x.get(lookup)
             if len(text) >= int(min_len):
-                yield {"text": x.get(lookup)}
+                result = {
+                        "text": x.get(lookup),
+                        "meta": {
+                            "url": x.get('url'),
+                            "field": lookup
+                        }
+                    }
+                yield result

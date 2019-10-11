@@ -10,8 +10,8 @@ setup(
     entry_points={
         'prodigy_loaders': [
             'from_dsebaseapp = dsebaseapp:yield_samples',
-            'from_transkribus = transkribus:yield_samples',
-            'from_transkribus_regions = transkribus:yield_texts',
+            'from_transkribus = pr_transkribus:yield_samples',
+            'from_transkribus_regions = pr_transkribus:yield_texts',
             'from_ske_docs = ske:yield_samples',
             'from_drf = drf:yield_samples'
         ],
