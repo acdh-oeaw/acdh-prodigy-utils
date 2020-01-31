@@ -62,7 +62,7 @@ def get_page_keys(col_id, doc_id, user=user, pw=pw):
 def yield_samples(source):
     col_id, doc_id = source.split('::')
     page_keys = get_page_keys(col_id, doc_id)
-    for page_url in page_keys:
+    for page_url in page_keys["page_keys"]:
         page_xml = requests.get(page_url)
         page = ET.fromstring(page_xml.text.encode('utf8'))
         text = " ".join(
