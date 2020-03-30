@@ -4,3 +4,5 @@ secret.py
 prodigy_utils.egg-info
 /Untitled.ipynb
 *.ipynb
+/dist
+/myenv

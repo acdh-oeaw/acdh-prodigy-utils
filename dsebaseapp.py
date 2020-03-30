@@ -4,6 +4,8 @@ import requests
 import spacy
 from spacy.symbols import ORTH
 
+from little_helpers import yield_abbr, ABBR_BASE
+
 
 def get_doc_list(domain, app_name, collection='editions', verbose=True):
     """ retrieves a list of doc-uris stored in a dsebaseapp
@@ -39,13 +41,6 @@ def yield_samples(source):
         :param source: a string follwoing this scheme {domain}::{app_name}::{collection}
         return: yields samples {"text": "Lorem ipsums"}
     """
-    my_terms = [
-        "Ew.",
-        "Ah.",
-        "FML.",
-        "Ag.",
-        "Se. "
-    ]
     domain, app_name, collection = source.split('::')
     collection = 'editions'
     spacy_model = 'de_core_news_sm'
@@ -54,7 +49,8 @@ def yield_samples(source):
     files = get_doc_list(domain, app_name, collection, verbose=verbose)
     nlp = spacy.load(spacy_model)
     exceptions = {}
-    for x in my_terms:
+    exceptions = {}
+    for x in yield_abbr(ABBR_BASE):
         exceptions[x] = [
             {ORTH: x}
         ]
