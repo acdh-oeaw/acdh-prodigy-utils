@@ -72,3 +72,8 @@ annotate TEI documents stored in a dsebaseapp instance
 ### NER
 
 `python -m prodigy ner.make-gold ske-amc de_core_news_sm amc3_demo --loader from_ske_docs`
+
+
+### stand-alones
+
+In the folder 'prodigy_standalones' additional examples on prodigy's usage are shown, namely such were all the configuration is done within python code itself. More info in the README of that subfolder.
