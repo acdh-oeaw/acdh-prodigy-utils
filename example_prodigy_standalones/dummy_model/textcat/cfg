@@ -1,0 +1,9 @@
+{
+  "labels":[
+    "category A",
+    "category B",
+    "category C"
+  ],
+  "pretrained_vectors":null,
+  "pretrained_dims":null
+}
