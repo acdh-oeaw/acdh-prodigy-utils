@@ -76,4 +76,4 @@ annotate TEI documents stored in a dsebaseapp instance
 
 ### stand-alones
 
-In the folder 'prodigy_standalones' additional examples on prodigy's usage are shown, namely such were all the configuration is done within python code itself. More info in the README of that subfolder.
+In the folder 'example_prodigy_standalones' additional examples on prodigy's usage are shown, namely such were all the configuration is done within python code itself. More info in the README of that subfolder.
