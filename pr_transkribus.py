@@ -1,3 +1,5 @@
+import os
+
 import requests
 import json
 import spacy
@@ -16,12 +18,12 @@ try:
     user = config['api_keys']['trankskribus_user']
 except KeyError:
     print("no config set")
-    user = "user"
+    user = os.environ.get('TRANSKRIBUS_USER', 'user')
 try:
     pw = config['api_keys']['trankskribus_pw']
 except KeyError:
     print("no config set")
-    pw = "pw"
+    pw = os.environ.get('TRANSKRIBUS_PW', 'pw')
 
 
 def transkribus_login(user, pw, rest_url=rest_url):
@@ -62,6 +64,7 @@ def get_page_keys(col_id, doc_id, user=user, pw=pw):
 def yield_samples(source):
     col_id, doc_id = source.split('::')
     page_keys = get_page_keys(col_id, doc_id)
+    counter = 0
     for page_url in page_keys["page_keys"]:
         page_xml = requests.get(page_url)
         page = ET.fromstring(page_xml.text.encode('utf8'))
@@ -72,15 +75,27 @@ def yield_samples(source):
         nlp = spacy.load(spacy_model)
         doc = nlp(text)
         print("found {} sents in doc: {}".format(len(list(doc.sents)), page_url))
+        meta_dict = {
+            "doc_id": page_url,
+            "doc_url": page_keys['doc_url'],
+            "page_id": page_keys["page_ids"][counter],
+            "page_thumb": page_keys["page_thumbs"][counter],
+            "image": page_keys["page_thumbs"][counter]
+        }
         for sent in list(doc.sents):
-            yield {"text": sent.text}
+            yield {
+                "text": sent.text,
+                "meta": meta_dict
+            }
 
 
 def yield_texts(source):
     col_id, doc_id = source.split('::')
+    print(col_id, doc_id)
     page_keys = get_page_keys(col_id, doc_id)
     counter = 0
     for page_url in page_keys["page_keys"]:
+        print(page_url)
         page_xml = requests.get(page_url)
         page = ET.fromstring(page_xml.text.encode('utf8'))
         for y in page.xpath(
