@@ -7,6 +7,9 @@ setup(
     author="Peter Andorfer",
     author_email="peter.andorfer@oeaw.ac.at",
     license="MIT",
+    install_requires=[
+       'lxml>=4.6.1'
+    ],
     entry_points={
         'prodigy_loaders': [
             'from_dsebaseapp = dsebaseapp:yield_samples',

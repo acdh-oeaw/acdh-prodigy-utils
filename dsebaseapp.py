@@ -49,7 +49,6 @@ def yield_samples(source):
     files = get_doc_list(domain, app_name, collection, verbose=verbose)
     nlp = spacy.load(spacy_model)
     exceptions = {}
-    exceptions = {}
     for x in yield_abbr(ABBR_BASE):
         exceptions[x] = [
             {ORTH: x}
@@ -66,4 +65,4 @@ def yield_samples(source):
         if verbose:
             print("found {} sents in doc".format(len(list(doc.sents))))
         for sent in list(doc.sents):
-                yield {"text": sent.text}
+            yield {"text": sent.text}
