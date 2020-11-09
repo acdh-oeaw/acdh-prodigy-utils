@@ -16,8 +16,8 @@ A bunch of custom loaders for prodigy
 "api_keys": {
     "ske_user": "someusername",
     "ske_pw": "somepassword",
-    "trankskribus_user": "someusername",
-    "trankskribus_pw": "somepassword"
+    "transkribus_user": "someusername",
+    "transkribus_pw": "somepassword"
 }
 ```
 

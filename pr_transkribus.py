@@ -15,12 +15,12 @@ spacy_model = "de_core_news_sm"
 
 config = get_config()
 try:
-    user = config['api_keys']['trankskribus_user']
+    user = config['api_keys']['transkribus_user']
 except KeyError:
     print("no config set")
     user = os.environ.get('TRANSKRIBUS_USER', 'user')
 try:
-    pw = config['api_keys']['trankskribus_pw']
+    pw = config['api_keys']['transkribus_pw']
 except KeyError:
     print("no config set")
     pw = os.environ.get('TRANSKRIBUS_PW', 'pw')
