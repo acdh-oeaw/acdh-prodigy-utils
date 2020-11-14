@@ -11,7 +11,6 @@ rest_url = "https://transkribus.eu/TrpServer/rest"
 nsmap = {
     "page": "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
 }
-spacy_model = "de_core_news_sm"
 
 config = get_config()
 try:
@@ -68,23 +67,21 @@ def yield_samples(source):
     for page_url in page_keys["page_keys"]:
         page_xml = requests.get(page_url)
         page = ET.fromstring(page_xml.text.encode('utf8'))
-        text = " ".join(
-            page.xpath('.//page:TextRegion/page:TextEquiv/page:Unicode/text()', namespaces=nsmap)
-        )
-        text = text.replace('¬\n', '').replace('\n', ' ')
-        nlp = spacy.load(spacy_model)
-        doc = nlp(text)
-        print("found {} sents in doc: {}".format(len(list(doc.sents)), page_url))
-        meta_dict = {
-            "doc_id": page_url,
-            "doc_url": page_keys['doc_url'],
-            "page_id": page_keys["page_ids"][counter],
-            "page_thumb": page_keys["page_thumbs"][counter],
-            "image": page_keys["page_thumbs"][counter]
-        }
-        for sent in list(doc.sents):
+        for y in page.xpath(
+            './/page:TextRegion/page:TextEquiv/page:Unicode/text()', namespaces=nsmap
+        ):
+            text = " ".join(y.split())
+            text = text.replace('¬ ', '')
+            img_url = page_keys["page_thumbs"][counter]
+            meta_dict = {
+                "doc_id": page_url,
+                "doc_url": page_keys['doc_url'],
+                "page_id": page_keys["page_ids"][counter],
+                "page_thumb": page_keys["page_thumbs"][counter],
+                "image": page_keys["page_thumbs"][counter]
+            }
             yield {
-                "text": sent.text,
+                "text": text,
                 "meta": meta_dict
             }
 
@@ -101,7 +98,8 @@ def yield_texts(source):
         for y in page.xpath(
             './/page:TextRegion/page:TextEquiv/page:Unicode/text()', namespaces=nsmap
         ):
-            text = y.replace('¬\n', '').replace('\n', ' ')
+            text = " ".join(y.split())
+            text = text.replace('¬ ', '')
             img_url = page_keys["page_thumbs"][counter]
             meta_dict = {
                 "doc_id": page_url,
