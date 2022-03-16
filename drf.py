@@ -22,12 +22,15 @@ def yield_samples(source):
         results = result.get('results')
         for x in results:
             text = x.get(lookup)
-            if len(text) >= int(min_len):
-                result = {
-                        "text": x.get(lookup),
-                        "meta": {
-                            "url": x.get('url'),
-                            "field": lookup
+            if text is not None:
+                if len(text) >= int(min_len):
+                    result = {
+                            "text": x.get(lookup),
+                            "meta": {
+                                "url": x.get('url'),
+                                "field": lookup
+                            }
                         }
-                    }
-                yield result
+                    yield result
+            else:
+                continue
